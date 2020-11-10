@@ -48,17 +48,17 @@
  */
 var isPalindrome = function(x) {
   // 方法一 语法糖
-  // return x.toString() === x.toString().split('').reverse().join('')
+  return x.toString() === x.toString().split('').reverse().join('')
 
   // 方法二 数学解法
-  if(x>=0 && x<10) return true // 边界 个数是回文数
-  if(x<0 || x%10===0) return false // 边界 负数 个位是0的数 非回文
-  let reverted = 0
-  while(x>reverted){
-    reverted = reverted*10 + x%10
-    x=Math.floor(x/10)
-  }
-  return x===reverted || Math.floor(reverted/10) === x
+  // if(x>=0 && x<10) return true // 边界 个数是回文数
+  // if(x<0 || x%10===0) return false // 边界 负数 个位是0的数 非回文
+  // let reverted = 0
+  // while(x>reverted){
+  //   reverted = reverted*10 + x%10
+  //   x=Math.floor(x/10)
+  // }
+  // return x===reverted || Math.floor(reverted/10) === x
 
 };
 // @lc code=end
