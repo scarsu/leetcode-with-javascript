@@ -76,22 +76,22 @@ var countNodes = function(root) {
   二分查找：
     第h层节点序号在 [2^h , 2^(h+1)-1]之间
     用位运算可以得到范围：low = 1 << h, high = (1 << (h + 1)) - 1;
-    可以通过二分查找来判断节点是否存在 [low,high] = exsit(mid) ? [mid,high] : [low,mid]
+    可以通过二分查找来判断节点是否存在 [low,high] = exist(mid) ? [mid,high] : [low,mid]
   位运算：
     完全二叉树 第h层的节点 可以通过h+1位二进制表示出来，
     第一位是1，代表root层，
     其后位于左子树则为0，右子树为1
 */
 const exists = (root, level, k) => {
-  let bits = 1 << (level - 1);
+  let bits = 1 << (level - 1); // bits:最后一层最左节点
   let node = root;
   while (node !== null && bits > 0) {
-    if (!(bits & k)) {
+    if (!(bits & k)) { // 按位与
       node = node.left;
     } else {
       node = node.right;
     }
-    bits >>= 1;
+    bits >>= 1; // 100变成10，即bits变成 上一层最左节点
   }
   return node !== null;
 }
