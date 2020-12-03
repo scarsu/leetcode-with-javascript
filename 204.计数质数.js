@@ -55,9 +55,8 @@ var countPrimes = function(n) {
   const isPrime = num => {
     if(num <= 1) return false
     let ret = true
-    let mid = Math.sqrt(num)
     let i = 2
-    while(i <= mid){
+    while(i*i <= num){
       if(num%i === 0) return false
       i++
     }
@@ -65,6 +64,7 @@ var countPrimes = function(n) {
   }
   let ret=0
   for(let i=0;i<n;i++){
+    if(i>10 && [1,3,7,9].indexOf(i%10)<0 ) continue
     if(isPrime(i)) ret++
   }
   return ret
