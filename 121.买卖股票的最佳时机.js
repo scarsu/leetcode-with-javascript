@@ -1,0 +1,74 @@
+/*
+ * @lc app=leetcode.cn id=121 lang=javascript
+ *
+ * [121] 买卖股票的最佳时机
+ *
+ * https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/description/
+ *
+ * algorithms
+ * Easy (55.15%)
+ * Likes:    1386
+ * Dislikes: 0
+ * Total Accepted:    343.8K
+ * Total Submissions: 619.6K
+ * Testcase Example:  '[7,1,5,3,6,4]'
+ *
+ * 给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+ * 
+ * 如果你最多只允许完成一笔交易（即买入和卖出一支股票一次），设计一个算法来计算你所能获取的最大利润。
+ * 
+ * 注意：你不能在买入股票前卖出股票。
+ * 
+ * 
+ * 
+ * 示例 1:
+ * 
+ * 输入: [7,1,5,3,6,4]
+ * 输出: 5
+ * 解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+ * ⁠    注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。
+ * 
+ * 
+ * 示例 2:
+ * 
+ * 输入: [7,6,4,3,1]
+ * 输出: 0
+ * 解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+ * 
+ * 
+ */
+
+// @lc code=start
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+// 找到前小后大 差值最大的两个数
+var maxProfit = function(prices) {
+  // 1.暴力遍历：每个数 都找到其后最大的数 O(n^2)
+  // let ret=0
+  // for(let i=0;i<prices.length;i++){
+  //   let inp = prices[i]
+  //   for(let j=i+1;j<prices.length;j++){
+  //     ret = Math.max(ret, prices[j]-inp)
+  //   }
+  // }
+  // return ret
+
+  // 2.贪心
+  // 维护一个最小数min，和最大利润max
+  // 一次遍历
+  // 如果prices[i]>min，将prices[i]-min与max比较，更新最大利润
+  // 如果prices[i]<min，将prices[i]作为min，（因为低点买入利润较大
+  let max=0,min=prices[0]
+  for(let i=0;i<prices.length;i++){
+    if(prices[i]>min && prices[i]-min>max){
+      max = prices[i]-min
+    }else if(prices[i]<min){
+      min = prices[i]
+    }
+  }
+  return max
+};
+// @lc code=end
+
