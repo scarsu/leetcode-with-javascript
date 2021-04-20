@@ -71,16 +71,15 @@
  */
 var removeElement = function(nums, val) {
   // 快慢指针
-  // 当nums[j]=val，j++以跳过当前数，直到不相等，交换nums[j]和nums[i],i++
-  const l=nums.length
-  let i=0
-  for(let j=0;j<l;j++){
-    if(nums[j]!==val){
-      nums[i]=nums[j]
-      i++
+  const n=nums.length
+  let slow=0
+  for(let fast=0;fast<n;fast++){
+    if(nums[fast]!==val){
+      nums[slow]=nums[fast]
+      slow++
     }
   }
-  return i
+  return slow
 };
 // @lc code=end
 
