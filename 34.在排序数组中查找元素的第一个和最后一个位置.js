@@ -92,44 +92,44 @@
   }
 */
 
-var searchRange = function(nums, target) {
-  let ret = [-1,-1]
-  if(nums.length === 0) return ret
+// var searchRange = function(nums, target) {
+//   let ret = [-1,-1]
+//   if(nums.length === 0) return ret
 
-  // 左
-  let l=0,r=nums.length-1
-  while(l<r) {
-    let mid = Math.floor((l+r)/2)
-    if(nums[mid]>=target){
-      r=mid
-    }else{
-      l=mid+1
-    }
-    // 循环结束left=mid=right-1
-  }
-  if(nums[l]===target){
-    ret[0]=l
-  }
+//   // 左
+//   let l=0,r=nums.length-1
+//   while(l<r) {
+//     let mid = Math.floor((l+r)/2)
+//     if(nums[mid]>=target){
+//       r=mid
+//     }else{
+//       l=mid+1
+//     }
+//     // 循环结束left=mid=right-1
+//   }
+//   if(nums[l]===target){
+//     ret[0]=l
+//   }
 
-  //右
-  l=0,r=nums.length-1
-  while(l<r) {
-    let mid = Math.ceil((l+r)/2)
-    // 下取整可能导致死循环 [1,2,3]->[2,3]->[2,3]->...
-    // 上取整没问题 [1,2,3]->[2,3]->[2,3]->...
-    if(nums[mid]<=target){
-      l=mid
-    }else{
-      r=mid-1
-    }
-    // 循环结束left=mid=right-1
-  }
-  if(nums[l]===target){
-    ret[1]=l
-  }
+//   //右
+//   l=0,r=nums.length-1
+//   while(l<r) {
+//     let mid = Math.ceil((l+r)/2)
+//     // 下取整可能导致死循环 [1,2,3]->[2,3]->[2,3]->...
+//     // 上取整没问题 [1,2,3]->[2,3]->[2,3]->...
+//     if(nums[mid]<=target){
+//       l=mid
+//     }else{
+//       r=mid-1
+//     }
+//     // 循环结束left=mid=right-1
+//   }
+//   if(nums[l]===target){
+//     ret[1]=l
+//   }
 
-  return ret
-};
+//   return ret
+// };
 
 /* 总结
 1. log n的题，第一反应就是二分
@@ -142,5 +142,42 @@ var searchRange = function(nums, target) {
 
 3. 范围/区间查找，分解成左右边界分别查找
 */
+
+
+
+// 二刷
+var searchRange = function(nums, target) {
+  // 已排序，用二分
+  // 两次二分，一次查找target第一个出现的位置，一次查找第一个大于target的位置
+  // 为了代码复用，定义一个通用的binarySearch
+  // lower true:查找第一个>target
+  // lower false:查找第一个>=target
+  const binarySearch = (nums, target, lower)=>{
+      let left=0,right=nums.length-1
+      let ret=nums.length
+      while(left<=right){
+          let mid=Math.floor((right+left)/2)
+          if(nums[mid]>target || (lower&&nums[mid]>=target)){
+              right=mid-1
+              ret=mid
+          }else{
+              left=mid+1
+          }
+      }
+      return ret
+  }
+  let leftIdx=binarySearch(nums,target,true)
+  let rightIdx=binarySearch(nums,target)-1
+  if(
+      rightIdx>=leftIdx &&
+      nums[leftIdx]===target &&
+      nums[rightIdx]===target &&
+      rightIdx<nums.length
+  ){
+      return [leftIdx,rightIdx]
+  }
+  return [-1,-1]
+};
+
 // @lc code=end
 
