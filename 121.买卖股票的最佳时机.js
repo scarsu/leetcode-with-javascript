@@ -57,18 +57,41 @@ var maxProfit = function(prices) {
 
   // 2.贪心
   // 维护一个最小数min，和最大利润max
+  // 贪心解题法 一般需要证明结果的正确性
   // 一次遍历
   // 如果prices[i]>min，将prices[i]-min与max比较，更新最大利润
   // 如果prices[i]<min，将prices[i]作为min，（因为低点买入利润较大
-  let max=0,min=prices[0]
-  for(let i=0;i<prices.length;i++){
-    if(prices[i]>min && prices[i]-min>max){
-      max = prices[i]-min
-    }else if(prices[i]<min){
-      min = prices[i]
-    }
+  // let max=0,min=prices[0]
+  // for(let i=0;i<prices.length;i++){
+  //   if(prices[i]>min && prices[i]-min>max){
+  //     max = prices[i]-min
+  //   }else if(prices[i]<min){
+  //     min = prices[i]
+  //   }
+  // }
+  // return max
+
+  // 3.动态规划
+  // 本题这种多阶段的决策问题适合用动态规划
+  let visited=false
+  const n=prices.length
+  // 状态定义设计
+  // 无后效性、当前状态只由之前的状态推导得到
+  const dp=new Array(n).fill()
+  dp[0]=[]
+  dp[0][0]=0
+  dp[0][1]=-prices[0]
+  for(let i=1;i<n;i++){
+      dp[i]=[]
+      // dp[i][0] 第i天不持股 的最大利润
+      // 包括两种情况：无操作、卖出之前的股份
+      dp[i][0]=Math.max(dp[i-1][0], dp[i-1][1]+prices[i])
+      // dp[i][1] 第i天持股 的最大利润
+      // 包括两种情况：之前持有的股票今日无操作、今日买入
+      dp[i][1]=Math.max(dp[i-1][1], -prices[i])
   }
-  return max
+  // 最后要么从始至终没买、要么已经卖出，肯定是返回dp[n-1][0]
+  return dp[n-1][0]
 };
 // @lc code=end
 
