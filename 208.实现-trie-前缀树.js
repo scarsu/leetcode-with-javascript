@@ -66,39 +66,109 @@
 // this.children作为每个word首字母存储的字典（是个对象{}）
 // 字典存储 key下一个字母，value下一个字母的字典
 // 逐层向下
-var Trie = function() {
-  this.children = {};
-};
-Trie.prototype.insert = function(word) {
-  let node = this.children;
-  for (const ch of word) {
-    if (!node[ch]) {
-      node[ch] = {};
-    }
-    node = node[ch];
-  }
-  node.isEnd = true;  // 标志word结尾
-};
+// var Trie = function() {
+//   this.children = {};
+// };
+// Trie.prototype.insert = function(word) {
+//   let node = this.children;
+//   for (const ch of word) {
+//     if (!node[ch]) {
+//       node[ch] = {};
+//     }
+//     node = node[ch];
+//   }
+//   node.isEnd = true;  // 标志word结尾
+// };
 
-Trie.prototype.searchPrefix = function(prefix) {
-  let node = this.children;
-  // 前缀查找：逐层搜索字母  直到找不着
-  for (const ch of prefix) {
-    if (!node[ch]) {
-      return false;
-    }
-    node = node[ch];
+// Trie.prototype.searchPrefix = function(prefix) {
+//   let node = this.children;
+//   // 前缀查找：逐层搜索字母  直到找不着
+//   for (const ch of prefix) {
+//     if (!node[ch]) {
+//       return false;
+//     }
+//     node = node[ch];
+//   }
+//   return node;
+// }
+
+// Trie.prototype.search = function(word) {
+//   const node = this.searchPrefix(word);
+//   return node !== undefined && node.isEnd === true;
+// };
+
+// Trie.prototype.startsWith = function(prefix) {
+//   return this.searchPrefix(prefix);
+// };
+
+
+
+// 第二次
+// var Trie = function() {
+//   this.root={}
+// };
+// Trie.prototype.insert = function(word) {
+//   let node=this.root
+//   for(let c of word){
+//       node[c]=node[c]||{}
+//       node=node[c]
+//   }
+//   node.isEnd=true
+// };
+// // false 不存在
+// // undefined/isEnd=true结尾了遍历完了
+// // !!node 是prefix
+// Trie.prototype.traverse = function(word) {
+//   let node=this.root
+//   for(let c of word){
+//       if(!node[c]){
+//           return false
+//       }
+//       node=node[c]
+//   }
+//   return node
+// }
+// Trie.prototype.search = function(word) {
+//   let node = this.traverse(word)
+//   return node===undefined || node.isEnd===true
+// };
+// Trie.prototype.startsWith = function(prefix) {
+//   return this.traverse(prefix)!==false
+// };
+
+// class语法
+class Trie{
+  constructor(){
+      this.root={}
   }
-  return node;
+  insert(word){
+      let node=this.root
+      for(let c of word){
+          node[c]=node[c]||{}
+          node=node[c]
+      }
+      node.isEnd=true
+  }
+  // false 不存在
+  // undefined/isEnd=true结尾了遍历完了
+  // !!node 是prefix
+  traverse (word) {
+      let node=this.root
+      for(let c of word){
+          if(!node[c]){
+              return false
+          }
+          node=node[c]
+      }
+      return node
+  }
+  search (word) {
+      let node = this.traverse(word)
+      return node===undefined || node.isEnd===true
+  };
+  startsWith (prefix) {
+      return this.traverse(prefix)!==false
+  };
 }
-
-Trie.prototype.search = function(word) {
-  const node = this.searchPrefix(word);
-  return node !== undefined && node.isEnd === true;
-};
-
-Trie.prototype.startsWith = function(prefix) {
-  return this.searchPrefix(prefix);
-};
 // @lc code=end
 
