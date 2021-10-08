@@ -54,6 +54,7 @@
 
 // @lc code=start
 var threeSum = function(nums) {
+  if(nums.length<3) return []
 
   // 排序(便于去重)
   nums.sort((a,b)=>a-b)
@@ -62,16 +63,14 @@ var threeSum = function(nums) {
   const ret=[]
 
   // 外层循环 遍历nums
-  for(let i=0;i<n-2;i++){
+  for(let i=0;i<n;i++){
     // 如果外层循环的数>0，后面的数都>0，无解，直接返回
     if(nums[i]>0) break
 
     // 外层循环去重
-    if(i>0 && nums[i]===nums[i-1]){
-      continue
-    }
+    if(i>0 && nums[i]===nums[i-1]) continue
 
-    // 内层循环 双指针 夹逼求和（注意去重）
+    // 内层循环 双指针 夹逼求和
     let l=i+1
     let r=n-1
     while(l<r){
@@ -79,12 +78,10 @@ var threeSum = function(nums) {
       let sum=nums[l]+nums[r]+nums[i]
       if(sum===0){
         // 得到一个解
-        ret.push([nums[i],nums[l],nums[r]])
-        // 移动两端指针(去重)
-        while(nums[l]===nums[l+1]) l++
-        while(nums[r]===nums[r-1]) r--
-        l++
-        r--
+        ret.push([nums[i],nums[l++],nums[r--]])
+        // 去重
+        while(nums[l]===nums[l-1]) l++
+        while(nums[r]===nums[r+1]) r--
       }else if(sum<0){
         // 和偏小 右移左指针
         l++
