@@ -60,23 +60,38 @@
  * @param {number[]} digits
  * @return {number[]}
  */
+// var plusOne = function(digits) {
+//   const n=digits.length
+//   let cur=n-1,carry=1
+//   while(carry>0){
+//     if(cur<0){
+//       digits.unshift(1)
+//       return digits
+//     }
+//     let sum=digits[cur]+carry
+//     if(sum<10){
+//       digits[cur]=sum
+//       return digits
+//     }else{
+//       digits[cur]=sum%10
+//       carry=1
+//       cur--
+//     }
+//   }
+//   return digits
+// };
 var plusOne = function(digits) {
   const n=digits.length
-  let cur=n-1,carry=1
-  while(carry>0){
-    if(cur<0){
-      digits.unshift(1)
-      return digits
-    }
-    let sum=digits[cur]+carry
-    if(sum<10){
-      digits[cur]=sum
-      return digits
-    }else{
-      digits[cur]=sum%10
-      carry=1
-      cur--
-    }
+  let carry=1
+  let i=n-1
+  while(carry>0&&i>=0){
+      const ret=digits[i]+carry
+      digits[i]=ret%10
+      carry=Math.trunc(ret/10)
+      i--
+  }
+  if(carry>0){
+      digits.unshift(carry)
   }
   return digits
 };
