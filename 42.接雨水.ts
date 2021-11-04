@@ -94,19 +94,19 @@ function trap(height: number[]): number {
           // 直到栈顶元素top和i满足递减
       // 时间复杂度O(n) n个元素中每个最多出栈、入栈一次 89%
       // 空间复杂度O(n) 单调栈数组最大长度n 30%
-  // const stack:number[]=[]
-  // const n=height.length
-  // let ret=0
-  // for(let i=0;i<n;i++){
-  //     while(stack.length && height[i]>height[stack[stack.length-1]]){
-  //         const top=stack.pop()
-  //         if(!stack.length) break
-  //         const left=stack[stack.length-1]
-  //         ret+= (i-left-1) * (Math.min(height[left], height[i]) - height[top])
-  //     }
-  //     stack.push(i)
-  // }
-  // return ret
+  const stack:number[]=[]
+  const n=height.length
+  let ret=0
+  for(let i=0;i<n;i++){
+      while(stack.length && height[i]>height[stack[stack.length-1]]){
+          const top=stack.pop()
+          if(!stack.length) break
+          const left=stack[stack.length-1]
+          ret+= (i-left-1) * (Math.min(height[left], height[i]) - height[top])
+      }
+      stack.push(i)
+  }
+  return ret
 
   // 4.双指针
       // 没看懂题解..我是傻批
