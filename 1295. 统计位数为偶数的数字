@@ -1,0 +1,19 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findNumbers = function(nums) {
+    let ret=0
+    for(let i=0;i<nums.length;i++){
+        // if(
+        //     nums[i]>=10&&nums[i]<=99 ||
+        //     nums[i]>=1000&&nums[i]<=9999 ||
+        //     nums[i]===100000
+        // ){
+        //     ret++
+        // }
+        const length = Math.floor(Math.log10(nums[i]))
+        if(length===1||length===3||length===5) ret++
+    }
+    return ret
+};
