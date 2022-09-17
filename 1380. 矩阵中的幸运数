@@ -1,0 +1,30 @@
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var luckyNumbers  = function(matrix) {
+    const m=matrix.length
+    const n=matrix[0].length
+    const rowsMin = new Array(m).fill(-1)
+    const colsMax = new Array(n).fill(-1)
+    for(let i=0;i<m;i++){
+        rowsMin[i]=Math.min(...matrix[i])
+    }
+    for(let i=0;i<n;i++){
+        let max=-1
+        for(let j=0;j<m;j++){
+            if(matrix[j][i]>max){
+                max=matrix[j][i]
+            }
+        }
+        colsMax[i]=max
+    }
+    let ret=[]
+    for(let i=0;i<m;i++){
+        for(let j=0;j<n;j++){
+            const cur=matrix[i][j]
+            if(rowsMin[i]===cur&&colsMax[j]===cur) ret.push(cur)
+        }
+    }
+    return ret
+};
