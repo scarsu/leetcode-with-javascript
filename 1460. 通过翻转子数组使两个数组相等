@@ -1,0 +1,37 @@
+/**
+ * @param {number[]} target
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+var canBeEqual = function(target, arr) {
+    // 贪心：只要元素相同，一定能翻转得到
+
+    // 哈希表记录数组元素
+    // const n=target.length
+    // const map=new Map()
+    // for(let i=0;i<n;i++){
+    //     const cur=target[i]
+    //     if(!map.get(cur)){
+    //         map.set(cur, 1)
+    //     }else{
+    //         map.set(cur,map.get(cur)+1)
+    //     }
+    // }
+    // for(let i=0;i<n;i++){
+    //     const cur=arr[i]
+    //     if(!map.get(cur) || map.get(cur)<1){
+    //         return false
+    //     }else{
+    //         map.set(cur,map.get(cur)-1)
+    //     }
+    // }
+    // for(let val of map.values()){
+    //     if(val>0) return false
+    // }
+    // return true
+
+    // 排序判断数组相同
+    target.sort((a,b)=>a-b)
+    arr.sort((a,b)=>a-b)
+    return target.toString()===arr.toString()
+};
