@@ -4,10 +4,10 @@
  */
 var maximumValue = function(strs) {
     return Math.max(...strs.map(i=>{
-        if(/^\d*$/.test(i)){
-            return parseInt(i, 10)
-        }else{
+        if(isNaN(i)){
             return i.length
+        }else{
+            return parseInt(i, 10)
         }
     }))
 };
