@@ -13,15 +13,16 @@ var fraction = function(cont) {
         divisor=dividend
         dividend=cont[i]*dividend+temp
     }
-    // 取除数和被除数的最大公约数
-    const gcd=getGcd(divisor,dividend)
-    return [dividend/gcd, divisor/gcd]
+    // 不需要求除数和被除数的最大公约数
+    // const gcd=getGcd(divisor,dividend)
+    // return [dividend/gcd, divisor/gcd]
+    return [dividend, divisor]
 };
 
-const getGcd=function(a,b){
-    // 辗转相除法
-    if(a<b) [a,b]=[b,a]
-    const mod=a%b
-    if(mod===0) return b
-    return getGcd(b,mod)
-}
+// const getGcd=function(a,b){
+//     // 辗转相除法
+//     if(a<b) [a,b]=[b,a]
+//     const mod=a%b
+//     if(mod===0) return b
+//     return getGcd(b,mod)
+// }
