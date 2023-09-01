@@ -1,0 +1,51 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSum = function(nums) {
+    const getMaxDigit=(num)=>{
+        let max=0
+        while(num>0){
+            const reminder=num%10
+            if(reminder>max) max=reminder
+            num=Math.floor(num/10)
+        }
+        return max
+    }
+    // const digitMap={}
+    // for(let num of nums){
+    //     const max=getMaxDigit(num)
+    //     digitMap[max]=digitMap[max]||[]
+    //     if(digitMap[max].length<2){
+    //         digitMap[max].push(num)
+    //     }else{
+    //         let [i,j]=digitMap[max]
+    //         if(i>j) [i,j]=[j,i]
+    //         if(num<=i) continue
+    //         digitMap[max]=[num,j]
+    //     }
+    // }
+    // let max=-1
+    // for(let key in digitMap){
+    //     if(digitMap[key].length===2){
+    //         const [i,j]=digitMap[key]
+    //         const sum=i+j
+    //         if(sum>max) max=sum
+    //     }
+    // }
+    // return max
+
+    // 优化思路:找两数最大和，不用维护两个最大值，可以只维护一个最大值，每次遍历用当前值+最大值 去更新最大和。
+    let max=-1
+    const maxVals=new Array(10)
+    for(let num of nums){
+        const maxDigit=getMaxDigit(num)
+        if(maxVals[maxDigit]){
+            max=Math.max(max, num+maxVals[maxDigit])
+            if(num>maxVals[maxDigit]) maxVals[maxDigit]=num
+        }else{
+            maxVals[maxDigit]=num
+        }
+    }
+    return max
+};
